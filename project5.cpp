@@ -45,7 +45,7 @@ template<typename T> class Vector
 				sz = size;
 				capa = size;
 
-				buff = static_cast<T*>(operator new(sizeof(T) * sz));
+				buff = static_cast<T*>(operator new(sizeof(T) * size));
 
 				for (int i = 0; i < sz; i++)
 					new(&buff[i]) T(init);
