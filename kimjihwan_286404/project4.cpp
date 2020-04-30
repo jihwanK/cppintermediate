@@ -8,11 +8,11 @@ class People
 	string addr;
 	int age;
 
-	public:
+public:
 	People(string n, string add, int a) : name(n), addr(add), age(a) {}
 
 	// 복사생성자
-	People(const People& p) : name(p.name), addr(p.addr), age(p.age)
+	People(const People &p) : name(p.name), addr(p.addr), age(p.age)
 	{
 		cout << "copy constructor" << endl;
 
@@ -22,7 +22,7 @@ class People
 	}
 
 	// 대입연산자
-	People& operator= (const People& p)
+	People &operator=(const People &p)
 	{
 		cout << "= operator" << endl;
 
@@ -38,7 +38,7 @@ class People
 	}
 
 	// Move 생성자
-	People(People&& p) : name(move(p.name)), addr(move(p.addr)), age(move(p.age))
+	People(People &&p) : name(move(p.name)), addr(move(p.addr)), age(move(p.age))
 	{
 		cout << "move constructor" << endl;
 
@@ -48,7 +48,7 @@ class People
 	}
 
 	// Move 대입연산자
-	People& operator= (People&& p)
+	People &operator=(People &&p)
 	{
 		cout << "move = operator" << endl;
 
@@ -69,23 +69,22 @@ class People
 	}
 };
 
-
 int main()
 {
 	// 1.
-	People* buff = static_cast<People*>(operator new(sizeof(People) * 10));
+	People *buff = static_cast<People *>(operator new(sizeof(People) * 10));
 	for (int i = 0; i < 10; i++)
-		new(&buff[i]) People{"홍길동", "서울", 20};
+		new (&buff[i]) People{"홍길동", "서울", 20};
 
 	// 2.
-	People* tmp = static_cast<People*>(operator new(sizeof(People) * 20));
+	People *tmp = static_cast<People *>(operator new(sizeof(People) * 20));
 	for (int i = 0; i < 10; i++)
 		tmp[i] = move_if_noexcept(buff[i]);
 
 	for (int i = 10; i < 20; i++)
-		new(&tmp[i]) People{"unknown", "unknown", 0};
+		new (&tmp[i]) People{"unknown", "unknown", 0};
 
-	delete(buff);
+	delete (buff);
 	buff = tmp;
 	tmp = nullptr;
 

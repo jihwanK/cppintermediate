@@ -1,0 +1,5 @@
+1. 해결 과제
+project1 ~ project 5
+
+2. comiler 종류
+g++ compiler 를 사용하였습니다.
